@@ -1,11 +1,10 @@
-from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
-# import unittest
+import unittest
 
+class NewVisitorTest(unittest.TestCase):
 
-class NewVisitorTest(LiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Chrome()
 
@@ -15,7 +14,7 @@ class NewVisitorTest(LiveServerTestCase):
     def test_can_start_a_list_and_retrieve_it_later(self):
         # Edith has heard about a cool new online to-do app. She goes
         # to check out its homepage
-        self.browser.get(self.live_server_url)
+        self.browser.get('http://localhost:8000')
 
         # She notices the page title and header mention to-do lists
         self.assertIn('To-Do', self.browser.title)
@@ -40,11 +39,8 @@ class NewVisitorTest(LiveServerTestCase):
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: Buy peacock feathers' for row in rows),
-            "New to-do item did not appear in table"
-        )
-
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+        self.assertIn('2: Use peacock feathers to make a fly', [row.text for row in rows])
         # There is still a text box inviting her to add another item. She
         # enters "Use peacock feathers to make a fly" (Edith is very
         # methodical)
@@ -52,15 +48,14 @@ class NewVisitorTest(LiveServerTestCase):
 
         # The page updates again, and now shows both items on her list
 
+        # Edith wonders whether the site will remember her list. Then she sees
+        # that the site has generated a unique URL for her -- there is some
+        # explanatory text to that effect.
+
+        # She visits that URL - her to-do list is still there.
+
+        # Satisfied, she goes back to sleep
 
 
-# if __name__ == '__main__':
-#     unittest.main()
-
-#
-# browser = webdriver.Chrome()
-# browser.get('http://localhost:8000')
-#
-# assert 'To-Do' in browser.title,  "Browser title was" + browser.title
-#
-# browser.quit()
+if __name__ == '__main__':
+    unittest.main(warnings='ignore')
