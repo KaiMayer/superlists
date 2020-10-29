@@ -1,1 +1,2 @@
-django=3.1.2
+django==3.1.2
+selenium~=3.141.0gunicorn==20.0.4

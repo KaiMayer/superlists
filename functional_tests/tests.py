@@ -15,10 +15,10 @@ class NewVisitorTest(StaticLiveServerTestCase):
         staging_server = os.environ.get('STAGING_SERVER')
         if staging_server:
             self.live_server_url = 'http://' + staging_server
+
     def tearDown(self):
         self.browser.refresh()
         self.browser.quit()
-
 
     def wait_for_row_in_list_table(self, row_text):
         start_time = time.time()
@@ -32,7 +32,6 @@ class NewVisitorTest(StaticLiveServerTestCase):
                 if time.time() - start_time > MAX_WAIT:
                     raise e
                 time.sleep(0.5)
-
 
     def test_can_start_a_list_for_one_user(self):
         # Edith has heard about a cool new online to-do app. She goes
@@ -72,7 +71,6 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.wait_for_row_in_list_table('1: Buy peacock feathers')
 
         # Satisfied, she goes back to sleep
-
 
     def test_multiple_users_can_start_lists_at_different_urls(self):
         # Edith starts a new to-do list
