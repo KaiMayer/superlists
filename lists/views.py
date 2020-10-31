@@ -1,13 +1,13 @@
 from django.shortcuts import redirect, render
 from lists.models import Item, List
+from lists.forms import ItemForm
 from django.core.exceptions import ValidationError
 
 
 def home_page(request):
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'form': ItemForm()})
 
-# TODO: Remove duplication of validation logic in views
-# TODO: Remove hardcoded URLs from views.py
+
 def new_list(request):
     list_ = List.objects.create()
     item = Item.objects.create(text=request.POST['item_text'], list=list_)
