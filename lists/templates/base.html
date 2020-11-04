@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>To-Do lists</title>
-    <link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../static/base.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'base.css'%}" >
 </head>
 <body>
 <div class="mx-auto w-50 p-1">
@@ -17,7 +18,7 @@
                 <form method="POST" action="{% block form_action %}{% endblock %}">
                     {{ form.text }}
                     {% csrf_token %}
-                    {%  if form.errors %}
+                    {% if form.errors %}
                         <div class="form-group has-error">
                             <span class="help-block">{{ form.text.errors }}</span>
                         </div>
@@ -34,11 +35,12 @@
     </div>
 </div>
 
-<script src="../static/test/jquery-3.5.1.min.js"></script>
+<script src="../static/jquery-3.5.1.min.js"></script>
 <script src="../static/list.js"></script>
 <script>
-    initialize();
+    $(document).ready(function () {
+        window.Superlists.initialize();
+    });
 </script>
-
 </body>
 </html>
